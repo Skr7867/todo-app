@@ -13,13 +13,15 @@ class NetworkApiServices extends BaseApiServices {
     if (kDebugMode) log("GET Token: $token");
     dynamic responseJson;
     try {
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          "Content-Type": "application/json",
-          if (token != null) "Authorization": "Bearer $token",
-        },
-      ).timeout(const Duration(seconds: 60));
+      final response = await http
+          .get(
+            Uri.parse(url),
+            headers: {
+              "Content-Type": "application/json",
+              if (token != null) "Authorization": "Bearer $token",
+            },
+          )
+          .timeout(const Duration(seconds: 60));
 
       responseJson = returnResponse(response);
     } on SocketException {
@@ -65,8 +67,9 @@ class NetworkApiServices extends BaseApiServices {
           }
         }
 
-        final streamedResponse =
-            await request.send().timeout(const Duration(seconds: 60));
+        final streamedResponse = await request.send().timeout(
+          const Duration(seconds: 60),
+        );
         final response = await http.Response.fromStream(streamedResponse);
         responseJson = returnResponse(response);
       } else {
@@ -101,8 +104,11 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   @override
-  Future<dynamic> patchApi(Map<String, dynamic> data, String url,
-      {String? token}) async {
+  Future<dynamic> patchApi(
+    Map<String, dynamic> data,
+    String url, {
+    String? token,
+  }) async {
     if (kDebugMode) {
       log("PATCH URL: $url");
       log("PATCH DATA: $data");
@@ -146,13 +152,15 @@ class NetworkApiServices extends BaseApiServices {
 
     dynamic responseJson;
     try {
-      final response = await http.delete(
-        Uri.parse(url),
-        headers: {
-          "Content-Type": "application/json",
-          if (token != null) "Authorization": "Bearer $token",
-        },
-      ).timeout(const Duration(seconds: 10));
+      final response = await http
+          .delete(
+            Uri.parse(url),
+            headers: {
+              "Content-Type": "application/json",
+              if (token != null) "Authorization": "Bearer $token",
+            },
+          )
+          .timeout(const Duration(seconds: 10));
 
       responseJson = returnResponse(response);
     } on SocketException {
@@ -171,7 +179,7 @@ class NetworkApiServices extends BaseApiServices {
 
   dynamic returnResponse(http.Response response) {
     log('Response Code: ${response.statusCode}');
-    debugPrint('Response Body: ${response.body}');
+    log('Response Body: ${response.body}');
 
     dynamic responseJson;
 
@@ -199,12 +207,14 @@ class NetworkApiServices extends BaseApiServices {
       case 403:
       case 404:
         throw FetchDataException(
-            responseJson != true && responseJson['message'] != null
-                ? responseJson['message']
-                : 'Error: ${response.statusCode}');
+          responseJson != true && responseJson['message'] != null
+              ? responseJson['message']
+              : 'Error: ${response.statusCode}',
+        );
       default:
         throw FetchDataException(
-            'Unexpected error occurred: ${response.statusCode}');
+          'Unexpected error occurred: ${response.statusCode}',
+        );
     }
   }
 }

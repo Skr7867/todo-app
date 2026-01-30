@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:getxmvvm/view_models/services/splash_services.dart';
+import 'package:getxmvvm/res/fonts/app_fonts.dart';
+
+import '../view_models/services/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,23 +11,22 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  SplashServices splashServices = SplashServices();
+  final SplashServices _splashServices = SplashServices();
+
   @override
   void initState() {
     super.initState();
-    splashServices.isLogin();
+    _splashServices.checkLoginStatus();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        centerTitle: true,
-        title: Text('email_hint'.tr),
-      ),
+    return const Scaffold(
       body: Center(
-        child: Text('welcome_back'.tr),
+        child: Text(
+          'Welcome Back',
+          style: TextStyle(fontSize: 18, fontFamily: AppFonts.opensansRegular),
+        ),
       ),
     );
   }
