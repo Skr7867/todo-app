@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getxmvvm/res/routes/routes_name.dart';
+import 'package:getxmvvm/utils/utils.dart';
 
 import '../../../models/reminder/reminder_model.dart';
 import '../../../repository/createReminder/create_reminder_repository.dart';
@@ -83,27 +87,6 @@ class CreateReminderController extends GetxController {
     "1week_before",
   ];
 
-  /// INIT
-  @override
-  void onInit() {
-    addAttendee();
-    super.onInit();
-  }
-
-  /// ATTENDEE
-  void addAttendee() {
-    attendees.add({
-      "name": TextEditingController(),
-      "email": TextEditingController(),
-      "phone": TextEditingController(),
-      "status": TextEditingController(text: "accepted"),
-    });
-  }
-
-  void removeAttendee(int index) {
-    attendees.removeAt(index);
-  }
-
   /// METHODS
   void addMethod() {
     if (methodController.text.isNotEmpty) {
@@ -156,14 +139,30 @@ class CreateReminderController extends GetxController {
     /// DATE VALIDATION
     if (startDate.value != null && endDate.value != null) {
       if (endDate.value!.isBefore(startDate.value!)) {
-        Get.snackbar("Error", "End date must be after start date");
+        Utils.snackBar("End date must be after start date", "Info");
         return;
       }
     }
 
     /// METHOD VALIDATION
     if (notificationMethods.isEmpty) {
-      Get.snackbar("Error", "Add at least 1 notification method");
+      Utils.snackBar("Add at least 1 notification method", "Info");
+      return;
+    }
+
+    if (isEvent.isFalse) {
+      Utils.snackBar('Please enable reminder', 'Info');
+      return;
+    }
+
+    if (titleController.text.isEmpty) {
+      Utils.snackBar('Title can not be empty', 'Info');
+    }
+    if (descController.text.isEmpty) {
+      Utils.snackBar('description can not be empty', 'Info');
+    }
+    if (notificationTimingController.text.isEmpty) {
+      Utils.snackBar("Please notification timing", 'Info');
       return;
     }
 
@@ -187,23 +186,16 @@ class CreateReminderController extends GetxController {
         category: categoryController.text,
         notificationMethods: notificationMethods,
         notificationTiming: notificationTimingController.text,
-        attendees: attendees.map((a) {
-          return {
-            "name": a["name"]!.text,
-            "email": a["email"]!.text,
-            "phone": a["phone"]!.text,
-            "status": a["status"]!.text,
-          };
-        }).toList(),
       );
 
       /// API CALL
       final response = await _repo.createReminderApi(reminder.toJson(), token);
 
-      Get.snackbar("Success", "Reminder Created Successfully");
-      print(response);
+      Utils.snackBar("Reminder Created Successfully", "Success");
+      Get.toNamed(RouteName.reminderDetailsScreen);
+      log(response);
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      log(e.toString());
     } finally {
       isLoading.value = false;
     }

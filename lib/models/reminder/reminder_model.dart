@@ -10,7 +10,6 @@ class ReminderModel {
   String category;
   List<String> notificationMethods;
   String notificationTiming;
-  List<Map<String, dynamic>> attendees;
 
   ReminderModel({
     required this.title,
@@ -24,7 +23,6 @@ class ReminderModel {
     required this.category,
     required this.notificationMethods,
     required this.notificationTiming,
-    required this.attendees,
   });
 
   Map<String, dynamic> toJson() => {
@@ -39,6 +37,5 @@ class ReminderModel {
     "category": category,
     "notificationMethods": notificationMethods,
     "notificationTiming": notificationTiming,
-    "attendees": attendees,
   };
 }

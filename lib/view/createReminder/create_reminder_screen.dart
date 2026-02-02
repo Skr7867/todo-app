@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../utils/utils.dart';
 import '../../view_models/controller/reminderController/create_reminder_controller.dart';
 
 class CreateReminderScreen extends StatelessWidget {
@@ -333,74 +334,6 @@ class CreateReminderScreen extends StatelessWidget {
     );
   }
 
-  // Widget _buildAttendeeCard(int index) {
-  //   final a = controller.attendees[index];
-  //   return Container(
-  //     margin: const EdgeInsets.only(bottom: 16),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(20),
-  //       border: Border.all(color: Colors.grey[200]!),
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: Colors.black.withOpacity(0.05),
-  //           blurRadius: 15,
-  //           offset: const Offset(0, 4),
-  //         ),
-  //       ],
-  //     ),
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(20),
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           Row(
-  //             children: [
-  //               Container(
-  //                 width: 40,
-  //                 height: 40,
-  //                 decoration: BoxDecoration(
-  //                   color: Theme.of(Get.context!).primaryColor.withOpacity(0.1),
-  //                   borderRadius: BorderRadius.circular(12),
-  //                 ),
-  //                 child: Center(
-  //                   child: Text(
-  //                     "${index + 1}",
-  //                     style: TextStyle(
-  //                       color: Theme.of(Get.context!).primaryColor,
-  //                       fontWeight: FontWeight.bold,
-  //                       fontSize: 16,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //               const SizedBox(width: 12),
-  //               Expanded(
-  //                 child: Text(
-  //                   "Attendee ${index + 1}",
-  //                   style: const TextStyle(
-  //                     fontSize: 16,
-  //                     fontWeight: FontWeight.bold,
-  //                   ),
-  //                 ),
-  //               ),
-  //               IconButton(
-  //                 icon: const Icon(Icons.delete_outline, color: Colors.red),
-  //                 onPressed: () => controller.removeAttendee(index),
-  //               ),
-  //             ],
-  //           ),
-  //           const SizedBox(height: 16),
-  //           _buildTextField("Name", a["name"]!, icon: Icons.person_outline),
-  //           _buildTextField("Email", a["email"]!, icon: Icons.email_outlined),
-  //           _buildTextField("Phone", a["phone"]!, icon: Icons.phone_outlined),
-  //           _buildTextField("Status", a["status"]!, icon: Icons.info_outline),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -442,6 +375,31 @@ class CreateReminderScreen extends StatelessWidget {
               "Enable reminder",
               controller.isEvent,
               icon: Icons.event_available,
+            ),
+            Obx(
+              () => controller.isEvent.value
+                  ? const SizedBox()
+                  : Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade50,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.orange.shade200),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.info_outline, color: Colors.orange),
+                          const SizedBox(width: 8),
+                          const Expanded(
+                            child: Text(
+                              "Enable reminder to create event reminder",
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
             ),
 
             Obx(
@@ -510,51 +468,38 @@ class CreateReminderScreen extends StatelessWidget {
               icon: Icons.schedule,
             ),
 
-            // Attendees Section
-            // _buildSectionHeader("Attendees", icon: Icons.people_outline),
-            // Obx(
-            //   () => Column(
-            //     children: List.generate(
-            //       controller.attendees.length,
-            //       (i) => _buildAttendeeCard(i),
-            //     ),
-            //   ),
-            // ),
-            // OutlinedButton.icon(
-            //   onPressed: controller.addAttendee,
-            //   icon: const Icon(Icons.person_add_outlined),
-            //   label: const Text("Add Attendee"),
-            //   style: OutlinedButton.styleFrom(
-            //     padding: const EdgeInsets.symmetric(vertical: 16),
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(16),
-            //     ),
-            //     side: BorderSide(color: Theme.of(context).primaryColor),
-            //     foregroundColor: Theme.of(context).primaryColor,
-            //   ),
-            // ),
             const SizedBox(height: 32),
 
             // Submit Button
-            Obx(
-              () => AnimatedContainer(
+            Obx(() {
+              final canSubmit =
+                  controller.isEvent.value && !controller.isLoading.value;
+
+              return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: controller.isLoading.value
-                      ? null
-                      : controller.createReminder,
+                  /// Disable if reminder OFF
+                  onPressed: canSubmit
+                      ? controller.createReminder
+                      : () {
+                          Utils.snackBar(
+                            "Please enable reminder first",
+                            "Info",
+                          );
+                        },
+
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: canSubmit
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey.shade400,
                     foregroundColor: Colors.white,
-                    elevation: controller.isLoading.value ? 0 : 4,
-                    shadowColor: Theme.of(
-                      context,
-                    ).primaryColor.withOpacity(0.4),
+                    elevation: canSubmit ? 4 : 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
+
                   child: controller.isLoading.value
                       ? const SizedBox(
                           height: 24,
@@ -564,14 +509,20 @@ class CreateReminderScreen extends StatelessWidget {
                             strokeWidth: 2.5,
                           ),
                         )
-                      : const Row(
+                      : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.check_circle_outline),
-                            SizedBox(width: 8),
+                            Icon(
+                              controller.isEvent.value
+                                  ? Icons.check_circle_outline
+                                  : Icons.lock_outline,
+                            ),
+                            const SizedBox(width: 8),
                             Text(
-                              "Create Reminder",
-                              style: TextStyle(
+                              controller.isEvent.value
+                                  ? "Create Reminder"
+                                  : "Enable Reminder To Continue",
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.5,
@@ -580,8 +531,8 @@ class CreateReminderScreen extends StatelessWidget {
                           ],
                         ),
                 ),
-              ),
-            ),
+              );
+            }),
 
             const SizedBox(height: 32),
           ],
