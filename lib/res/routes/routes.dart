@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:getxmvvm/view/createReminder/create_reminder_screen.dart';
 import 'package:getxmvvm/view/login/user_login_screen.dart';
 import 'package:getxmvvm/view/register/register_screen.dart';
+import 'package:getxmvvm/view/reminderDetails/reminder_details_screen.dart';
 import 'package:getxmvvm/view/splash_screen.dart';
 import '../../view/home/home_screen.dart';
 import 'routes_name.dart';
@@ -29,6 +31,18 @@ class AppRoutes {
     GetPage(
       name: RouteName.homeScreen,
       page: () => HomeScreen(),
+      transitionDuration: Duration(microseconds: 250),
+      transition: Transition.leftToRightWithFade,
+    ),
+    GetPage(
+      name: RouteName.createReminderScreen,
+      page: () => CreateReminderScreen(),
+      transitionDuration: Duration(microseconds: 250),
+      transition: Transition.leftToRightWithFade,
+    ),
+    GetPage(
+      name: RouteName.reminderDetailsScreen,
+      page: () => ReminderDetailsScreen(),
       transitionDuration: Duration(microseconds: 250),
       transition: Transition.leftToRightWithFade,
     ),
