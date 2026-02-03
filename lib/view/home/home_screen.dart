@@ -148,7 +148,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: IconButton(
               tooltip: 'See All Reminders',
               onPressed: () {
-                Get.toNamed(RouteName.reminderDetailsScreen);
+                // Get.toNamed(RouteName.reminderDetailsScreen);
+                Get.toNamed(RouteName.localReminderListScreen);
               },
               icon: const Icon(
                 Icons.list_alt_rounded,
@@ -400,7 +401,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Widget _buildFloatingActionButton() {
     return FloatingActionButton.extended(
-      onPressed: () => Get.toNamed(RouteName.createReminderScreen),
+      // onPressed: () => Get.toNamed(RouteName.createReminderScreen),
+      onPressed: () => Get.toNamed(RouteName.localReminderCreateScreen),
       backgroundColor: Colors.purple.shade600,
       elevation: 8,
       icon: const Icon(Icons.add_rounded, color: Colors.white),
