@@ -264,7 +264,8 @@ class CreateReminderScreen extends StatelessWidget {
                 child: TextField(
                   controller: controller.methodController,
                   decoration: InputDecoration(
-                    hintText: "Add notification method",
+                    hintText: "Add push,email,whatsapp..",
+                    hintStyle: TextStyle(fontSize: 10),
                     prefixIcon: const Icon(
                       Icons.notifications_outlined,
                       size: 20,

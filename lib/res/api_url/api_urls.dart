@@ -8,4 +8,5 @@ class ApiUrls {
   static const String userLoginApi = '$baseUrl/apis/v1/auth/login';
   static const String createReminderApi = '$baseUrl/apis/v1/reminders';
   static const String reminderDetailsApi = '$baseUrl/apis/v1/reminders';
+  static const String deleteReminderApi = '$baseUrl/apis/v1/reminders';
 }

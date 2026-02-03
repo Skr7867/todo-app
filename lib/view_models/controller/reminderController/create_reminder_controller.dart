@@ -196,6 +196,7 @@ class CreateReminderController extends GetxController {
       log(response);
     } catch (e) {
       log(e.toString());
+      Utils.snackBar(e.toString(), 'info');
     } finally {
       isLoading.value = false;
     }

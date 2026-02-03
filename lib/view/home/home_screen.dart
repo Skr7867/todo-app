@@ -373,7 +373,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Widget _buildTitleText(bool isTablet) {
     return Text(
-      'Create Your First Reminder',
+      'Create Your Reminder',
       textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: isTablet ? 32 : 24,

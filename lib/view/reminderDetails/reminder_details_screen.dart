@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:intl/intl.dart';
 
+import '../../view_models/controller/deleteReminder/delete_reminder_controller.dart';
 import '../../view_models/controller/reminderDetails/reminder_details_controller.dart';
 
 class ReminderDetailsScreen extends StatelessWidget {
@@ -50,7 +51,13 @@ class ReminderDetailsScreen extends StatelessWidget {
     }
   }
 
-  void _showDeleteDialog(BuildContext context, int index, String? title) {
+  void _showDeleteDialog(
+    BuildContext context,
+    String? reminderId,
+    String? title,
+  ) {
+    final deleteController = Get.put(DeleteReminderController());
+
     showDialog(
       context: context,
       builder: (context) => Dialog(
@@ -107,39 +114,36 @@ class ReminderDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        // controller.deleteReminder(index);
-                        Get.snackbar(
-                          'Deleted',
-                          'Reminder deleted successfully',
-                          snackPosition: SnackPosition.BOTTOM,
+                    child: Obx(
+                      () => ElevatedButton(
+                        onPressed: deleteController.isDeleting.value
+                            ? null
+                            : () {
+                                Navigator.pop(context);
+
+                                if (reminderId != null) {
+                                  deleteController.deleteReminder(reminderId);
+                                } else {
+                                  Get.snackbar(
+                                    "Error",
+                                    "Reminder ID not found",
+                                  );
+                                }
+                              },
+                        style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red.shade400,
-                          colorText: Colors.white,
-                          margin: const EdgeInsets.all(16),
-                          borderRadius: 12,
-                          icon: const Icon(
-                            Icons.check_circle,
-                            color: Colors.white,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red.shade400,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
                         ),
-                      ),
-                      child: const Text(
-                        'Delete',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        child: deleteController.isDeleting.value
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text("Delete"),
                       ),
                     ),
                   ),
@@ -294,7 +298,8 @@ class ReminderDetailsScreen extends StatelessWidget {
                 ),
               ),
               confirmDismiss: (direction) async {
-                _showDeleteDialog(context, index, r.title);
+                _showDeleteDialog(context, r.id, r.title);
+
                 return false;
               },
               child: Container(
@@ -391,7 +396,8 @@ class ReminderDetailsScreen extends StatelessWidget {
                               /// DELETE BUTTON
                               IconButton(
                                 onPressed: () =>
-                                    _showDeleteDialog(context, index, r.title),
+                                    _showDeleteDialog(context, r.id, r.title),
+
                                 icon: Icon(
                                   Icons.delete_outline,
                                   color: Colors.red,
