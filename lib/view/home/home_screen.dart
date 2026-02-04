@@ -148,8 +148,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: IconButton(
               tooltip: 'See All Reminders',
               onPressed: () {
-                // Get.toNamed(RouteName.reminderDetailsScreen);
-                Get.toNamed(RouteName.localReminderListScreen);
+                Get.toNamed(RouteName.reminderDetailsScreen);
+                // Get.toNamed(RouteName.localReminderListScreen);
               },
               icon: const Icon(
                 Icons.list_alt_rounded,
@@ -341,7 +341,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   color: Colors.transparent,
                   child: InkWell(
                     customBorder: const CircleBorder(),
-                    onTap: () => Get.toNamed(RouteName.createReminderScreen),
+                    // onTap: () => Get.toNamed(RouteName.createReminderScreen),
+                    onTap: () =>
+                        Get.toNamed(RouteName.localReminderCreateScreen),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

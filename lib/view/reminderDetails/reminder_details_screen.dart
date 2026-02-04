@@ -13,12 +13,14 @@ class ReminderDetailsScreen extends StatelessWidget {
 
   String formatDate(String? date) {
     if (date == null || date.isEmpty) return "-";
-    return DateFormat('dd MMM yyyy • hh:mm a').format(DateTime.parse(date));
+    final dt = DateTime.parse(date).toLocal();
+    return DateFormat('dd MMM yyyy • hh:mm a').format(dt);
   }
 
   String formatTime(String? date) {
     if (date == null || date.isEmpty) return "-";
-    return DateFormat('hh:mm a').format(DateTime.parse(date));
+    final dt = DateTime.parse(date).toLocal();
+    return DateFormat('hh:mm a').format(dt);
   }
 
   Color _getCategoryColor(String? category) {
@@ -435,81 +437,7 @@ class ReminderDetailsScreen extends StatelessWidget {
                             color: Colors.blue,
                           ),
 
-                          /// EVENT DETAILS
-                          if (r.isEvent == true) ...[
-                            const SizedBox(height: 12),
-                            _InfoRow(
-                              icon: Icons.event,
-                              label: 'Event Type',
-                              value: r.eventType ?? "-",
-                              color: Colors.purple,
-                            ),
-                            const SizedBox(height: 12),
-                            _InfoRow(
-                              icon: Icons.schedule,
-                              label: 'Duration',
-                              value:
-                                  '${formatDate(r.eventStartDate)} → ${formatTime(r.eventEndDate)}',
-                              color: Colors.orange,
-                            ),
-                            if (r.location != null &&
-                                r.location!.isNotEmpty) ...[
-                              const SizedBox(height: 12),
-                              _InfoRow(
-                                icon: Icons.location_on_outlined,
-                                label: 'Location',
-                                value: r.location!,
-                                color: Colors.red,
-                              ),
-                            ],
-                            if (r.allDay == true) ...[
-                              const SizedBox(height: 12),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 8,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.green.shade50,
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    color: Colors.green.shade200,
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.wb_sunny_outlined,
-                                      size: 18,
-                                      color: Colors.green.shade700,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      'All Day Event',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.green.shade700,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ],
-
                           /// NOTIFICATION
-                          if (r.notificationTiming != null &&
-                              r.notificationTiming!.isNotEmpty) ...[
-                            const SizedBox(height: 12),
-                            _InfoRow(
-                              icon: Icons.notifications_outlined,
-                              label: 'Notification',
-                              value: r.notificationTiming!,
-                              color: Colors.teal,
-                            ),
-                          ],
                         ],
                       ),
                     ),
