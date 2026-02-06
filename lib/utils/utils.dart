@@ -36,6 +36,9 @@ class Utils {
       case 'error':
         bgColor = Colors.red;
         break;
+      case 'failed':
+        bgColor = Colors.red;
+        break;
       case 'success':
         bgColor = Colors.green;
         break;

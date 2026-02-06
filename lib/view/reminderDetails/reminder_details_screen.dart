@@ -223,12 +223,6 @@ class ReminderDetailsScreen extends StatelessWidget {
                       color: Colors.grey.shade800,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    controller.errorMessage.value,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
-                  ),
                 ],
               ),
             ),
@@ -433,7 +427,7 @@ class ReminderDetailsScreen extends StatelessWidget {
                           _InfoRow(
                             icon: Icons.access_time,
                             label: 'Reminder',
-                            value: formatDate(r.reminderDate),
+                            value: formatDate(r.eventStartDate),
                             color: Colors.blue,
                           ),
 

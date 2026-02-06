@@ -9,4 +9,6 @@ class ApiUrls {
   static const String createReminderApi = '$baseUrl/apis/v1/reminders';
   static const String reminderDetailsApi = '$baseUrl/apis/v1/reminders';
   static const String deleteReminderApi = '$baseUrl/apis/v1/reminders';
+  static const String notificationHistoryApi =
+      '$baseUrl/apis/v1/notifications/history';
 }

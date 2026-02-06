@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "673332842441",
+    "project_id": "tricpro-dfd21",
+    "storage_bucket": "tricpro-dfd21.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673332842441:android:971c69eb3ef9065b926218",
+        "android_client_info": {
+          "package_name": "com.example.reminder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6c8U73wmNuCwL-1CNWQwbPzHWjscZH0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673332842441:android:9996d040d724c9c3926218",
+        "android_client_info": {
+          "package_name": "com.themescoder.driver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6c8U73wmNuCwL-1CNWQwbPzHWjscZH0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,7 +11,7 @@ class SplashServices {
       final user = await _prefs.getUser();
       final String? token = user.token;
 
-      Timer(const Duration(seconds: 3), () {
+      Timer(const Duration(seconds: 1), () {
         if (token != null && token.isNotEmpty) {
           Get.offAllNamed(RouteName.homeScreen);
         } else {
@@ -19,7 +19,7 @@ class SplashServices {
         }
       });
     } catch (e) {
-      Timer(const Duration(seconds: 3), () {
+      Timer(const Duration(seconds: 1), () {
         Get.offAllNamed(RouteName.loginScreen);
       });
     }

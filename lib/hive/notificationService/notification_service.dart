@@ -19,18 +19,50 @@ class NotificationService {
 
     await _plugin.initialize(
       settings: settings,
-      onDidReceiveNotificationResponse: (response) {
-        try {
-          if (response.payload != null) {
-            final data = jsonDecode(response.payload!);
 
-            Get.toNamed(RouteName.alarmScreen, arguments: data);
+      onDidReceiveNotificationResponse: (response) async {
+        try {
+          if (response.payload == null) return;
+
+          final data = jsonDecode(response.payload!);
+          final int id = data["id"];
+
+          /// ⭐ CHECK WHICH BUTTON PRESSED
+          if (response.actionId == "STOP_ACTION") {
+            await cancel(id);
+
+            return;
           }
+
+          if (response.actionId == "SNOOZE_ACTION") {
+            await snoozeMinutes(id, 5);
+
+            return;
+          }
+
+          /// NORMAL NOTIFICATION CLICK
+          Get.toNamed(RouteName.alarmScreen, arguments: data);
         } catch (e) {
-          log("Payload error $e");
+          log("Action error $e");
         }
       },
     );
+
+    /// ⭐ HANDLE APP OPEN FROM KILLED STATE
+    final details = await _plugin.getNotificationAppLaunchDetails();
+
+    if (details?.didNotificationLaunchApp ?? false) {
+      final payload = details!.notificationResponse?.payload;
+
+      if (payload != null) {
+        final data = jsonDecode(payload);
+
+        /// Delay ensures GetX navigation works after app init
+        Future.delayed(const Duration(milliseconds: 500), () {
+          Get.offAllNamed(RouteName.alarmScreen, arguments: data);
+        });
+      }
+    }
 
     /// ⭐ CREATE ALARM CHANNEL MANUALLY
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -92,6 +124,22 @@ class NotificationService {
             enableVibration: true,
             ongoing: true,
             autoCancel: false,
+
+            /// ⭐ ACTION BUTTONS HERE
+            actions: <AndroidNotificationAction>[
+              AndroidNotificationAction(
+                'STOP_ACTION',
+                'Stop',
+                showsUserInterface: true,
+                cancelNotification: true,
+              ),
+
+              AndroidNotificationAction(
+                'SNOOZE_ACTION',
+                'Snooze',
+                showsUserInterface: false,
+              ),
+            ],
           ),
         ),
 
@@ -108,8 +156,8 @@ class NotificationService {
   }
 
   /// 😴 SNOOZE
-  static Future snooze(int id, Duration delay) async {
-    final newTime = DateTime.now().add(delay);
+  static Future snoozeMinutes(int id, int minutes) async {
+    final newTime = DateTime.now().add(Duration(minutes: minutes));
 
     await schedule(
       id: id,

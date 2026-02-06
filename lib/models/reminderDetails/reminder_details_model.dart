@@ -1,3 +1,7 @@
+import 'package:hive/hive.dart';
+
+part 'reminder_details_model.g.dart';
+
 class ReminderDetailsModel {
   bool? success;
   String? message;
@@ -32,38 +36,61 @@ class Data {
   }
 }
 
-class Reminders {
+@HiveType(typeId: 0)
+class Reminders extends HiveObject {
+  @HiveField(0)
   String? id;
+
+  @HiveField(1)
   String? title;
+
+  @HiveField(2)
   String? description;
+
+  @HiveField(3)
   String? reminderDate;
+
+  @HiveField(4)
   bool? isEvent;
+
+  @HiveField(5)
   String? eventType;
+
+  @HiveField(6)
   String? eventStartDate;
+
+  @HiveField(7)
   String? eventEndDate;
+
+  @HiveField(8)
   String? location;
+
+  @HiveField(9)
   bool? allDay;
+
+  @HiveField(10)
   String? category;
+
+  @HiveField(11)
   String? notificationTiming;
 
+  @HiveField(12)
   List<String> notificationMethods;
-  List<Attendees> attendees;
 
   Reminders({
     this.id,
     this.title,
     this.description,
-    this.reminderDate,
+    this.eventStartDate,
     this.isEvent,
     this.eventType,
-    this.eventStartDate,
+    this.reminderDate,
     this.eventEndDate,
     this.location,
     this.allDay,
     this.category,
     this.notificationTiming,
     this.notificationMethods = const [],
-    this.attendees = const [],
   });
 
   factory Reminders.fromJson(Map<String, dynamic> json) {
@@ -71,10 +98,10 @@ class Reminders {
       id: json['_id'],
       title: json['title'],
       description: json['description'],
-      reminderDate: json['reminderDate'],
+      eventStartDate: json['eventStartDate'],
       isEvent: json['isEvent'],
       eventType: json['eventType'],
-      eventStartDate: json['eventStartDate'],
+      reminderDate: json['eventStartDate'],
       eventEndDate: json['eventEndDate'],
       location: json['location'],
       allDay: json['allDay'],
@@ -82,27 +109,6 @@ class Reminders {
       notificationTiming: json['notificationTiming'],
       notificationMethods: (json['notificationMethods'] as List? ?? [])
           .cast<String>(),
-      attendees: (json['attendees'] as List? ?? [])
-          .map((e) => Attendees.fromJson(e))
-          .toList(),
-    );
-  }
-}
-
-class Attendees {
-  String? name;
-  String? email;
-  String? phone;
-  String? status;
-
-  Attendees({this.name, this.email, this.phone, this.status});
-
-  factory Attendees.fromJson(Map<String, dynamic> json) {
-    return Attendees(
-      name: json['name'],
-      email: json['email'],
-      phone: json['phone'],
-      status: json['status'],
     );
   }
 }

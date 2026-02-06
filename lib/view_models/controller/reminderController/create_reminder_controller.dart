@@ -27,8 +27,22 @@ class CreateReminderController extends GetxController {
   final descController = TextEditingController();
 
   /// ================= RX STATE =================
+  RxString notificationTiming = "30min_before".obs;
   RxBool allDay = false.obs;
   Rxn<DateTime> startDate = Rxn<DateTime>();
+  final List<Map<String, String>> timingOptions = [
+    {"value": "exact", "label": "At exact time"},
+    {"value": "5min_before", "label": "5 minutes before"},
+    {"value": "15min_before", "label": "15 minutes before"},
+    {"value": "30min_before", "label": "30 minutes before"},
+    {"value": "1hr_before", "label": "1 hour before"},
+    {"value": "2hr_before", "label": "2 hours before"},
+    {"value": "6hr_before", "label": "6 hours before"},
+    {"value": "12hr_before", "label": "12 hours before"},
+    {"value": "1day_before", "label": "1 day before"},
+    {"value": "2days_before", "label": "2 days before"},
+    {"value": "1week_before", "label": "1 week before"},
+  ];
 
   /// ====================================================
   /// 📅 DATE + TIME PICKER
@@ -102,7 +116,8 @@ class CreateReminderController extends GetxController {
       final reminder = ReminderModel(
         title: titleController.text.trim(),
         description: descController.text.trim(),
-        eventStartDate: getUtcIsoTime(), // ⭐ IMPORTANT
+        eventStartDate: getUtcIsoTime(),
+        notificationTiming: notificationTiming.value,
       );
 
       log("Sending Time (UTC): ${getUtcIsoTime()}");
@@ -119,7 +134,7 @@ class CreateReminderController extends GetxController {
     } catch (e) {
       log("Create Reminder Error: $e");
 
-      Utils.snackBar(e.toString(), 'Error');
+      Utils.snackBar('Failed to create reminder', 'Failed');
     } finally {
       isLoading.value = false;
     }

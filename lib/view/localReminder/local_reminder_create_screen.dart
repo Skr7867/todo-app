@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getxmvvm/res/fonts/app_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../view_models/controller/reminderController/create_reminder_controller.dart';
@@ -122,6 +123,14 @@ class LocalReminderCreateScreen extends StatelessWidget {
                 Obx(() => _buildDateTimeCard(context, isDark)),
 
                 const SizedBox(height: 40),
+                _buildSectionLabel(
+                  "Notification Timing",
+                  Icons.notifications_active,
+                ),
+                const SizedBox(height: 12),
+
+                Obx(() => _buildTimingDropdown()),
+                const SizedBox(height: 30),
 
                 /// SAVE BUTTON
                 Obx(() => _buildSaveButton(context, isDark)),
@@ -130,6 +139,49 @@ class LocalReminderCreateScreen extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTimingDropdown() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          value: controller.notificationTiming.value,
+          isExpanded: true,
+
+          items: controller.timingOptions.map((item) {
+            return DropdownMenuItem<String>(
+              value: item["value"],
+              child: Text(
+                item["label"]!,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontFamily: AppFonts.opensansRegular,
+                ),
+              ),
+            );
+          }).toList(),
+
+          onChanged: (value) {
+            if (value != null) {
+              controller.notificationTiming.value = value;
+            }
+          },
         ),
       ),
     );
@@ -398,7 +450,7 @@ class LocalReminderCreateScreen extends StatelessWidget {
                     Get.snackbar(
                       "Missing Information",
                       "Please select a reminder time",
-                      snackPosition: SnackPosition.BOTTOM,
+                      snackPosition: SnackPosition.TOP,
                       backgroundColor: Colors.orange.shade100,
                       colorText: Colors.orange.shade900,
                       icon: const Icon(

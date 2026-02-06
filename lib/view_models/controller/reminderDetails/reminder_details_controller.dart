@@ -1,24 +1,19 @@
 import 'package:get/get.dart';
 
+import '../../../hive/hive_service.dart';
+import '../../../hive/notificationService/notification_service.dart';
 import '../../../models/reminderDetails/reminder_details_model.dart';
 import '../../../repository/reminderDetails/reminder_details_repository.dart';
 import '../user_preferences/user_preferences_viewmodel.dart';
 
 class ReminderDetailsController extends GetxController {
-  /// REPOSITORY
   final ReminderDetailsRepository _repo = ReminderDetailsRepository();
-
-  /// USER PREF
   final UserPreferencesViewmodel _userPref = UserPreferencesViewmodel();
 
-  /// STATES
   RxBool isLoading = false.obs;
   RxString errorMessage = "".obs;
 
-  /// DATA
-  Rxn<ReminderDetailsModel> reminderResponse = Rxn<ReminderDetailsModel>();
-
-  /// SHORTCUT → reminders list
+  Rxn<ReminderDetailsModel> reminderResponse = Rxn();
   RxList<Reminders> remindersList = <Reminders>[].obs;
 
   @override
@@ -27,45 +22,47 @@ class ReminderDetailsController extends GetxController {
     super.onInit();
   }
 
-  /// 🚀 FETCH FROM API
   Future<void> fetchReminderDetails() async {
     try {
       isLoading.value = true;
       errorMessage.value = "";
 
-      /// GET TOKEN
       final user = await _userPref.getUser();
       final token = user.token ?? "";
 
-      if (token.isEmpty) {
-        throw Exception("Token not found. Please login again.");
-      }
-
-      /// API CALL
       final response = await _repo.reminderDetailsApi(token);
 
       reminderResponse.value = response;
-
-      /// Extract List
       remindersList.assignAll(response.data?.reminders ?? []);
 
-      print("✅ Reminder Details Loaded");
+      await _syncLocalAndSchedule(remindersList);
     } catch (e) {
       errorMessage.value = e.toString();
-      print("❌ Reminder Details Error => $e");
-
-      Get.snackbar(
-        "Error",
-        errorMessage.value,
-        snackPosition: SnackPosition.BOTTOM,
-      );
     } finally {
       isLoading.value = false;
     }
   }
 
-  /// 🔄 REFRESH SUPPORT
-  Future<void> refreshData() async {
-    await fetchReminderDetails();
+  Future<void> _syncLocalAndSchedule(List<Reminders> list) async {
+    final box = HiveService.reminderBox;
+
+    for (var r in list) {
+      if (r.id == null || r.eventStartDate == null) continue;
+
+      /// SAVE HIVE
+      await box.put(r.id, r);
+
+      /// SCHEDULE
+      final dt = DateTime.parse(r.eventStartDate!).toLocal();
+
+      await NotificationService.cancel(r.id.hashCode);
+
+      await NotificationService.schedule(
+        id: r.id.hashCode,
+        title: r.title ?? "Reminder",
+        body: r.description ?? "",
+        dateTime: dt,
+      );
+    }
   }
 }
