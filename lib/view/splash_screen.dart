@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:getxmvvm/res/fonts/app_fonts.dart';
 
+import '../res/fonts/app_fonts.dart';
 import '../view_models/services/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {

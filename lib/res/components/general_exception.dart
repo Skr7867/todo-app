@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxmvvm/res/color/app_colors.dart';
+
+import '../color/app_colors.dart';
 
 class GeneralException extends StatefulWidget {
   final VoidCallback onpress;
@@ -19,21 +20,13 @@ class _GeneralExceptionState extends State<GeneralException> {
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          SizedBox(
-            height: screenHeight * 0.03,
-          ),
-          Icon(
-            Icons.cloud_off,
-            color: AppColors.blackColor,
-            size: 50,
-          ),
+          SizedBox(height: screenHeight * 0.03),
+          Icon(Icons.cloud_off, color: AppColors.blackColor, size: 50),
           Padding(
             padding: const EdgeInsets.only(top: 30),
             child: Center(child: Text('general_exception'.tr)),
           ),
-          SizedBox(
-            height: screenHeight * 0.03,
-          ),
+          SizedBox(height: screenHeight * 0.03),
           InkWell(
             onTap: widget.onpress,
             child: Container(
@@ -50,7 +43,7 @@ class _GeneralExceptionState extends State<GeneralException> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

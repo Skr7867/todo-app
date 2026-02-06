@@ -1,4 +1,4 @@
-import 'package:getxmvvm/data/response/status.dart';
+import 'package:everem/data/response/status.dart';
 
 class ApiResponse<T> {
   Status? status;

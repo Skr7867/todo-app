@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxmvvm/res/fonts/app_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../res/fonts/app_fonts.dart';
 import '../../view_models/controller/reminderController/create_reminder_controller.dart';
 
 class LocalReminderCreateScreen extends StatelessWidget {

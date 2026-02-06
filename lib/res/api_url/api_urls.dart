@@ -11,4 +11,9 @@ class ApiUrls {
   static const String deleteReminderApi = '$baseUrl/apis/v1/reminders';
   static const String notificationHistoryApi =
       '$baseUrl/apis/v1/notifications/history';
+  static const String resetPasswordOtpApi =
+      '$baseUrl/apis/v1/auth/send-password-reset-otp';
+  static const String verifyResetPasswordOtpApi =
+      '$baseUrl/apis/v1/auth/verify-password-reset-otp';
+  static const String resetPasswordApi = '$baseUrl/apis/v1/auth/reset-password';
 }

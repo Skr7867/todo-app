@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,8 +10,8 @@ import '../user_preferences/user_preferences_viewmodel.dart';
 
 class UserLoginController extends GetxController {
   /// 🔹 Text Controllers
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
 
   /// 🔹 Repository
   final UserLoginRepository _loginRepo = UserLoginRepository();
@@ -22,6 +21,13 @@ class UserLoginController extends GetxController {
 
   /// 🔹 UI State
   final isLoading = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
 
   /// ---------------- LOGIN ----------------
   Future<void> loginUser() async {

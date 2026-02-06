@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math' as math;
-import 'package:getxmvvm/res/components/round_button.dart';
-import 'package:getxmvvm/res/customwidget/custome_textfield.dart';
-import 'package:getxmvvm/res/fonts/app_fonts.dart';
-import 'package:getxmvvm/res/routes/routes_name.dart';
+import '../../res/components/round_button.dart';
+import '../../res/customwidget/custome_textfield.dart';
+import '../../res/fonts/app_fonts.dart';
+import '../../res/routes/routes_name.dart';
 import '../../view_models/controller/userLogin/user_login_controller.dart';
 
 class UserLoginScreen extends StatefulWidget {
@@ -16,8 +16,8 @@ class UserLoginScreen extends StatefulWidget {
 
 class _UserLoginScreenState extends State<UserLoginScreen>
     with TickerProviderStateMixin {
-  /// 🔹 Inject controller
-  final UserLoginController controller = Get.put(UserLoginController());
+  /// 🔹 Inject controller - Use Get.find() if already exists, or create new one
+  UserLoginController get controller => Get.find<UserLoginController>();
 
   late AnimationController _fadeController;
   late AnimationController _slideController;
@@ -344,7 +344,7 @@ class _UserLoginScreenState extends State<UserLoginScreen>
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      // Add forgot password functionality
+                      Get.toNamed(RouteName.resetPasswordScreen);
                     },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,

@@ -1,4 +1,4 @@
-name: getxmvvm
+name: everem
 description: "A new Flutter project."
 publish_to: 'none' 
 version: 1.0.0+1
@@ -44,7 +44,6 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
     - assets/icons/
   fonts:
     - family: poppins

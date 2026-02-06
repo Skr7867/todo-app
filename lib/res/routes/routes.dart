@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
-import 'package:getxmvvm/view/localReminder/local_reminder_create_screen.dart';
-import 'package:getxmvvm/view/login/user_login_screen.dart';
-import 'package:getxmvvm/view/notification/notification_screen.dart';
-import 'package:getxmvvm/view/register/register_screen.dart';
-import 'package:getxmvvm/view/reminderDetails/reminder_details_screen.dart';
-import 'package:getxmvvm/view/splash_screen.dart';
+
 import '../../view/alarmScreen/alarm_screen.dart';
 import '../../view/home/home_screen.dart';
+import '../../view/localReminder/local_reminder_create_screen.dart';
+import '../../view/login/user_login_binding.dart';
+import '../../view/login/user_login_screen.dart';
+import '../../view/notification/notification_screen.dart';
+import '../../view/register/register_screen.dart';
+import '../../view/reminderDetails/reminder_details_screen.dart';
+import '../../view/resetPasswordScreen/reset_password_binding.dart';
+import '../../view/resetPasswordScreen/reset_password_screen.dart';
+import '../../view/splash_screen.dart';
 import 'routes_name.dart';
 
 class AppRoutes {
@@ -26,9 +30,10 @@ class AppRoutes {
 
     GetPage(
       name: RouteName.loginScreen,
-      page: () => UserLoginScreen(),
-      transitionDuration: Duration(microseconds: 250),
+      page: () => const UserLoginScreen(),
+      transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade,
+      binding: UserLoginBinding(),
     ),
     GetPage(
       name: RouteName.homeScreen,
@@ -54,12 +59,13 @@ class AppRoutes {
       transitionDuration: Duration(microseconds: 250),
       transition: Transition.leftToRightWithFade,
     ),
-    // GetPage(
-    //   name: RouteName.localReminderListScreen,
-    //   page: () => LocalReminderListScreen(),
-    //   transitionDuration: Duration(microseconds: 250),
-    //   transition: Transition.leftToRightWithFade,
-    // ),
+    GetPage(
+      name: RouteName.resetPasswordScreen,
+      page: () => ResetPasswordScreen(),
+      transitionDuration: const Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade,
+      binding: ResetPasswordBinding(),
+    ),
     GetPage(
       name: RouteName.alarmScreen,
       page: () => AlarmScreen(),

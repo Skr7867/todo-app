@@ -9,4 +9,5 @@ class RouteName {
   static const localReminderListScreen = '/local_reminder_list_screen';
   static const alarmScreen = '/alram_screen';
   static const notificationScreen = '/notification_screen';
+  static const resetPasswordScreen = '/reset_password_screen';
 }

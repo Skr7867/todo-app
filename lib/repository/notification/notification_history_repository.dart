@@ -1,6 +1,6 @@
-import 'package:getxmvvm/data/network/network_api_services.dart';
-import 'package:getxmvvm/models/notification/notification_history_model.dart';
-import 'package:getxmvvm/res/api_url/api_urls.dart';
+import '../../data/network/network_api_services.dart';
+import '../../models/notification/notification_history_model.dart';
+import '../../res/api_url/api_urls.dart';
 
 class NotificationHistoryRepository {
   final _apiService = NetworkApiServices();

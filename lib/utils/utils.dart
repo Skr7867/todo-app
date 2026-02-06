@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:getxmvvm/res/color/app_colors.dart';
+
+import '../res/color/app_colors.dart';
 
 class Utils {
   static void fieldFocusChanged(

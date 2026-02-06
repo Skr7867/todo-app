@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxmvvm/res/fonts/app_fonts.dart';
-import 'package:getxmvvm/res/routes/routes_name.dart';
-import 'package:getxmvvm/view_models/controller/logOut/log_out_controller.dart';
+
+import '../../res/fonts/app_fonts.dart';
+import '../../res/routes/routes_name.dart';
+import '../../view_models/controller/logOut/log_out_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

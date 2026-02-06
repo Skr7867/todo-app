@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:getxmvvm/res/routes/routes_name.dart';
-import 'package:getxmvvm/view_models/controller/user_preferences/user_preferences_viewmodel.dart';
+
+import '../../res/routes/routes_name.dart';
+import '../controller/user_preferences/user_preferences_viewmodel.dart';
 
 class SplashServices {
   final UserPreferencesViewmodel _prefs = UserPreferencesViewmodel();

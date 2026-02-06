@@ -1,5 +1,6 @@
-import 'package:getxmvvm/models/login/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../models/login/user_model.dart';
 
 class UserPreferencesViewmodel {
   static const _tokenKey = 'token';

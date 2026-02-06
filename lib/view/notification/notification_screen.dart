@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxmvvm/res/routes/routes_name.dart';
-
 import '../../res/customwidget/custome_appbar.dart';
+import '../../res/routes/routes_name.dart';
 import '../../view_models/controller/notification/notification_controller.dart';
 
 class NotificationScreen extends StatelessWidget {

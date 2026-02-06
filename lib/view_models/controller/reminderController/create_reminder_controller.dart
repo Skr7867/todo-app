@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxmvvm/res/routes/routes_name.dart';
-import 'package:getxmvvm/utils/utils.dart';
 
 import '../../../models/reminder/reminder_model.dart';
 import '../../../repository/createReminder/create_reminder_repository.dart';
+import '../../../res/routes/routes_name.dart';
+import '../../../utils/utils.dart';
 import '../user_preferences/user_preferences_viewmodel.dart';
 
 class CreateReminderController extends GetxController {
