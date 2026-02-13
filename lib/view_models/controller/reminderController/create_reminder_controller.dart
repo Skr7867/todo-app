@@ -132,9 +132,8 @@ class CreateReminderController extends GetxController {
       /// Navigate
       Get.toNamed(RouteName.reminderDetailsScreen);
     } catch (e) {
-      log("Create Reminder Error: $e");
-
       Utils.snackBar('Failed to create reminder', 'Failed');
+      log("Create Reminder Error: $e");
     } finally {
       isLoading.value = false;
     }

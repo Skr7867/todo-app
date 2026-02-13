@@ -16,7 +16,7 @@ class AlarmScreen extends StatefulWidget {
 class _AlarmScreenState extends State<AlarmScreen> {
   final args = Get.arguments ?? {};
   StreamSubscription? shakeSub;
-  Timer? repeatTimer;
+  // Timer? repeatTimer;
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
     final id = args["id"];
 
     startShake(id);
-    startRepeat(id);
+    // startRepeat(id);
   }
 
   void startShake(int id) {
@@ -35,28 +35,28 @@ class _AlarmScreenState extends State<AlarmScreen> {
     });
   }
 
-  void startRepeat(int id) {
-    repeatTimer = Timer.periodic(const Duration(seconds: 30), (_) {
-      NotificationService.schedule(
-        id: id,
-        title: args["title"],
-        body: args["body"],
-        dateTime: DateTime.now().add(const Duration(seconds: 2)),
-      );
-    });
-  }
+  // void startRepeat(int id) {
+  //   repeatTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+  //     NotificationService.schedule(
+  //       id: id,
+  //       title: args["title"],
+  //       body: args["body"],
+  //       dateTime: DateTime.now().add(const Duration(seconds: 2)),
+  //     );
+  //   });
+  // }
 
   Future dismiss(int id) async {
     await NotificationService.cancel(id);
     shakeSub?.cancel();
-    repeatTimer?.cancel();
+    // repeatTimer?.cancel();
     Get.back();
   }
 
   @override
   void dispose() {
     shakeSub?.cancel();
-    repeatTimer?.cancel();
+    // repeatTimer?.cancel();
     super.dispose();
   }
 

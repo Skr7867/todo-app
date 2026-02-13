@@ -27,44 +27,25 @@ class NotificationService {
           final data = jsonDecode(response.payload!);
           final int id = data["id"];
 
-          /// ⭐ CHECK WHICH BUTTON PRESSED
           if (response.actionId == "STOP_ACTION") {
             await cancel(id);
-
             return;
           }
 
           if (response.actionId == "SNOOZE_ACTION") {
             await snoozeMinutes(id, 5);
-
             return;
           }
 
-          /// NORMAL NOTIFICATION CLICK
-          Get.toNamed(RouteName.alarmScreen, arguments: data);
+          if (Get.currentRoute != RouteName.alarmScreen) {
+            Get.offAllNamed(RouteName.alarmScreen, arguments: data);
+          }
         } catch (e) {
           log("Action error $e");
         }
       },
     );
 
-    /// ⭐ HANDLE APP OPEN FROM KILLED STATE
-    final details = await _plugin.getNotificationAppLaunchDetails();
-
-    if (details?.didNotificationLaunchApp ?? false) {
-      final payload = details!.notificationResponse?.payload;
-
-      if (payload != null) {
-        final data = jsonDecode(payload);
-
-        /// Delay ensures GetX navigation works after app init
-        Future.delayed(const Duration(milliseconds: 500), () {
-          Get.offAllNamed(RouteName.alarmScreen, arguments: data);
-        });
-      }
-    }
-
-    /// ⭐ CREATE ALARM CHANNEL MANUALLY
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'reminder_channel',
       'Reminders',

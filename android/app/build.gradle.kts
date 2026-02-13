@@ -52,9 +52,9 @@ android {
         release {
             /// ⭐ USE RELEASE SIGNING (NOT DEBUG)
             signingConfig = signingConfigs.getByName("release")
-            minifyEnabled true
-            shrinkResources true
-            
+
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
 }

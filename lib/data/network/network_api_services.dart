@@ -195,22 +195,21 @@ class NetworkApiServices extends BaseApiServices {
 
     switch (response.statusCode) {
       case 200:
-      case 304:
       case 201:
       case 204:
-      case 206:
-      case 409:
-      case 500:
-      case 401:
         return responseJson;
+
       case 400:
+      case 401:
       case 403:
       case 404:
+      case 500:
         throw FetchDataException(
           responseJson != true && responseJson['message'] != null
               ? responseJson['message']
               : 'Error: ${response.statusCode}',
         );
+
       default:
         throw FetchDataException(
           'Unexpected error occurred: ${response.statusCode}',

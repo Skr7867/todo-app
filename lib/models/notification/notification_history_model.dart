@@ -8,13 +8,13 @@ class NotificationHistoryModel {
   NotificationHistoryModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -33,27 +33,25 @@ class Data {
     if (json['notifications'] != null) {
       notifications = <Notifications>[];
       json['notifications'].forEach((v) {
-        notifications!.add(new Notifications.fromJson(v));
+        notifications!.add(Notifications.fromJson(v));
       });
     }
-    stats = json['stats'] != null ? new Stats.fromJson(json['stats']) : null;
+    stats = json['stats'] != null ? Stats.fromJson(json['stats']) : null;
     pagination = json['pagination'] != null
-        ? new Pagination.fromJson(json['pagination'])
+        ? Pagination.fromJson(json['pagination'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.notifications != null) {
-      data['notifications'] = this.notifications!
-          .map((v) => v.toJson())
-          .toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (notifications != null) {
+      data['notifications'] = notifications!.map((v) => v.toJson()).toList();
     }
-    if (this.stats != null) {
-      data['stats'] = this.stats!.toJson();
+    if (stats != null) {
+      data['stats'] = stats!.toJson();
     }
-    if (this.pagination != null) {
-      data['pagination'] = this.pagination!.toJson();
+    if (pagination != null) {
+      data['pagination'] = pagination!.toJson();
     }
     return data;
   }
@@ -92,15 +90,14 @@ class Notifications {
     sId = json['_id'];
     userId = json['userId'];
     reminderId = json['reminderId'] != null
-        ? new ReminderId.fromJson(json['reminderId'])
+        ? ReminderId.fromJson(json['reminderId'])
         : null;
     title = json['title'];
     message = json['message'];
     type = json['type'];
     status = json['status'];
-    metadata = json['metadata'] != null
-        ? new Metadata.fromJson(json['metadata'])
-        : null;
+    metadata =
+        json['metadata'] != null ? Metadata.fromJson(json['metadata']) : null;
     sentAt = json['sentAt'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -108,23 +105,23 @@ class Notifications {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['userId'] = this.userId;
-    if (this.reminderId != null) {
-      data['reminderId'] = this.reminderId!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['_id'] = sId;
+    data['userId'] = userId;
+    if (reminderId != null) {
+      data['reminderId'] = reminderId!.toJson();
     }
-    data['title'] = this.title;
-    data['message'] = this.message;
-    data['type'] = this.type;
-    data['status'] = this.status;
-    if (this.metadata != null) {
-      data['metadata'] = this.metadata!.toJson();
+    data['title'] = title;
+    data['message'] = message;
+    data['type'] = type;
+    data['status'] = status;
+    if (metadata != null) {
+      data['metadata'] = metadata!.toJson();
     }
-    data['sentAt'] = this.sentAt;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    data['sentAt'] = sentAt;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }
@@ -156,13 +153,13 @@ class ReminderId {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['title'] = this.title;
-    data['eventStartDate'] = this.eventStartDate;
-    data['sentAt'] = this.sentAt;
-    data['notificationSent'] = this.notificationSent;
-    data['notificationCount'] = this.notificationCount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['title'] = title;
+    data['eventStartDate'] = eventStartDate;
+    data['sentAt'] = sentAt;
+    data['notificationSent'] = notificationSent;
+    data['notificationCount'] = notificationCount;
     return data;
   }
 }
@@ -179,9 +176,9 @@ class Metadata {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['error'] = this.error;
-    data['deliveryMethod'] = this.deliveryMethod;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['error'] = error;
+    data['deliveryMethod'] = deliveryMethod;
     return data;
   }
 }
@@ -207,11 +204,11 @@ class Stats {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.nId;
-    data['totalReminders'] = this.totalReminders;
-    data['sentReminders'] = this.sentReminders;
-    data['failedReminders'] = this.failedReminders;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = nId;
+    data['totalReminders'] = totalReminders;
+    data['sentReminders'] = sentReminders;
+    data['failedReminders'] = failedReminders;
     return data;
   }
 }
@@ -243,13 +240,13 @@ class Pagination {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
-    data['page'] = this.page;
-    data['limit'] = this.limit;
-    data['totalPages'] = this.totalPages;
-    data['hasNextPage'] = this.hasNextPage;
-    data['hasPrevPage'] = this.hasPrevPage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total'] = total;
+    data['page'] = page;
+    data['limit'] = limit;
+    data['totalPages'] = totalPages;
+    data['hasNextPage'] = hasNextPage;
+    data['hasPrevPage'] = hasPrevPage;
     return data;
   }
 }
