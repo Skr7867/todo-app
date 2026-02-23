@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:673332842441:android:971c69eb3ef9065b926218",
+        "mobilesdk_app_id": "1:673332842441:android:9996d040d724c9c3926218",
         "android_client_info": {
-          "package_name": "com.example.reminder"
+          "package_name": "com.themescoder.driver"
         }
       },
       "oauth_client": [],
@@ -26,9 +26,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:673332842441:android:9996d040d724c9c3926218",
+        "mobilesdk_app_id": "1:673332842441:android:1eef8aaecb817206926218",
         "android_client_info": {
-          "package_name": "com.themescoder.driver"
+          "package_name": "everem.reminder.com"
         }
       },
       "oauth_client": [],

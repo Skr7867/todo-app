@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD6c8U73wmNuCwL-1CNWQwbPzHWjscZH0k',
-    appId: '1:673332842441:android:971c69eb3ef9065b926218',
+    appId: '1:673332842441:android:1eef8aaecb817206926218',
     messagingSenderId: '673332842441',
     projectId: 'tricpro-dfd21',
     storageBucket: 'tricpro-dfd21.firebasestorage.app',
@@ -66,10 +66,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCdhKolqSj1dMn9gyYD4YqJKiUOZB8j79U',
-    appId: '1:673332842441:ios:887af3185ddfb338926218',
+    appId: '1:673332842441:ios:f99d6b8d62c8ac79926218',
     messagingSenderId: '673332842441',
     projectId: 'tricpro-dfd21',
     storageBucket: 'tricpro-dfd21.firebasestorage.app',
-    iosBundleId: 'com.example.reminder',
+    iosBundleId: 'everem.reminder.com',
   );
 }

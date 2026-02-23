@@ -27,7 +27,7 @@ class CreateReminderController extends GetxController {
   final descController = TextEditingController();
 
   /// ================= RX STATE =================
-  RxString notificationTiming = "30min_before".obs;
+  RxString notificationTiming = "exact".obs;
   RxBool allDay = false.obs;
   Rxn<DateTime> startDate = Rxn<DateTime>();
   final List<Map<String, String>> timingOptions = [

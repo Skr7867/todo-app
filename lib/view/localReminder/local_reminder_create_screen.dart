@@ -38,7 +38,7 @@ class LocalReminderCreateScreen extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
         title: Text(
-          "Create Reminder",
+          "Create Reminderhh",
           style: TextStyle(
             color: theme.colorScheme.onSurface,
             fontWeight: FontWeight.bold,

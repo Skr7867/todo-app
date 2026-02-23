@@ -430,8 +430,6 @@ class ReminderDetailsScreen extends StatelessWidget {
                             value: formatDate(r.eventStartDate),
                             color: Colors.blue,
                           ),
-
-                          /// NOTIFICATION
                         ],
                       ),
                     ),
