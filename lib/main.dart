@@ -12,7 +12,7 @@ import 'hive/notificationService/notification_service.dart';
 import 'hive/notificationService/timezone_service.dart';
 import 'res/routes/routes.dart';
 
-/// ⭐ MUST BE TOP LEVEL FUNCTION
+///  MUST BE TOP LEVEL FUNCTION
 Future<void> firebaseBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 
@@ -30,7 +30,7 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  /// ⭐ REGISTER BACKGROUND HANDLER
+  // REGISTER BACKGROUND HANDLER
   FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
 
   await FCMManager.init();

@@ -7,6 +7,7 @@ import '../../../models/reminder/reminder_model.dart';
 import '../../../repository/createReminder/create_reminder_repository.dart';
 import '../../../res/routes/routes_name.dart';
 import '../../../utils/utils.dart';
+import '../reminderDetails/reminder_details_controller.dart';
 import '../user_preferences/user_preferences_viewmodel.dart';
 
 class CreateReminderController extends GetxController {
@@ -44,9 +45,6 @@ class CreateReminderController extends GetxController {
     {"value": "1week_before", "label": "1 week before"},
   ];
 
-  /// ====================================================
-  /// 📅 DATE + TIME PICKER
-  /// ====================================================
   Future pickDateTime(BuildContext context, bool isStart) async {
     DateTime? date = await showDatePicker(
       context: context,
@@ -77,9 +75,6 @@ class CreateReminderController extends GetxController {
     }
   }
 
-  /// ====================================================
-  /// 🧠 CLEAN DATE → REMOVE SECONDS → CONVERT TO UTC
-  /// ====================================================
   String? getUtcIsoTime() {
     if (startDate.value == null) return null;
 
@@ -94,9 +89,6 @@ class CreateReminderController extends GetxController {
     return utc.toIso8601String();
   }
 
-  /// ====================================================
-  /// 🚀 CREATE REMINDER (API)
-  /// ====================================================
   Future<void> createReminder() async {
     if (!formKey.currentState!.validate()) return;
 
@@ -130,7 +122,10 @@ class CreateReminderController extends GetxController {
       Utils.snackBar("Reminder Created Successfully", "Success");
 
       /// Navigate
-      Get.toNamed(RouteName.reminderDetailsScreen);
+      if (Get.isRegistered<ReminderDetailsController>()) {
+        await Get.find<ReminderDetailsController>().fetchReminderDetails();
+      }
+      Get.toNamed(RouteName.homeScreen);
     } catch (e) {
       Utils.snackBar('Failed to create reminder', 'Failed');
       log("Create Reminder Error: $e");
@@ -139,9 +134,6 @@ class CreateReminderController extends GetxController {
     }
   }
 
-  /// ====================================================
-  /// 🧹 DISPOSE CONTROLLERS
-  /// ====================================================
   @override
   void onClose() {
     titleController.dispose();

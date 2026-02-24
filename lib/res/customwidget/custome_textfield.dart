@@ -94,7 +94,10 @@ class CustomTextFieldState extends State<CustomTextField> {
           hintText: widget.hintText,
           labelText: widget.labelText,
           prefixIcon: widget.prefixIcon != null
-              ? Icon(widget.prefixIcon, color: AppColors.blueColor)
+              ? Icon(
+                  widget.prefixIcon,
+                  color: const Color.fromARGB(255, 3, 104, 6),
+                )
               : null,
 
           // Dynamic suffixIcon

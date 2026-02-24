@@ -26,7 +26,7 @@ class Utils {
     Fluttertoast.showToast(
       msg: message,
       backgroundColor: AppColors.blackColor,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
     );
   }
 
@@ -44,7 +44,7 @@ class Utils {
         bgColor = Colors.green;
         break;
       case 'info':
-        bgColor = AppColors.blueColor;
+        bgColor = Colors.green;
         break;
       default:
         bgColor = AppColors.blueColor;

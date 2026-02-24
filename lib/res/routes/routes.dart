@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 
 import '../../view/alarmScreen/alarm_screen.dart';
-import '../../view/home/home_screen.dart';
-import '../../view/localReminder/local_reminder_create_screen.dart';
+import '../../view/home/timeline_screen.dart';
+import '../../view/localReminder/add_new_event_screen.dart';
 import '../../view/login/user_login_binding.dart';
 import '../../view/login/user_login_screen.dart';
 import '../../view/notification/notification_screen.dart';
 import '../../view/register/register_screen.dart';
-import '../../view/reminderDetails/reminder_details_screen.dart';
+
 import '../../view/resetPasswordScreen/reset_password_binding.dart';
 import '../../view/resetPasswordScreen/reset_password_screen.dart';
 import '../../view/splash_screen.dart';
@@ -37,7 +37,7 @@ class AppRoutes {
     ),
     GetPage(
       name: RouteName.homeScreen,
-      page: () => HomeScreen(),
+      page: () => TimelineScreen(),
       transitionDuration: Duration(microseconds: 250),
       transition: Transition.leftToRightWithFade,
     ),
@@ -47,15 +47,10 @@ class AppRoutes {
       transitionDuration: Duration(microseconds: 250),
       transition: Transition.leftToRightWithFade,
     ),
-    GetPage(
-      name: RouteName.reminderDetailsScreen,
-      page: () => ReminderDetailsScreen(),
-      transitionDuration: Duration(microseconds: 250),
-      transition: Transition.leftToRightWithFade,
-    ),
+
     GetPage(
       name: RouteName.localReminderCreateScreen,
-      page: () => LocalReminderCreateScreen(),
+      page: () => AddNewEventScreen(),
       transitionDuration: Duration(microseconds: 250),
       transition: Transition.leftToRightWithFade,
     ),

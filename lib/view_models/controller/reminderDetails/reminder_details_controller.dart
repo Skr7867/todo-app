@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../hive/hive_service.dart';
@@ -10,11 +11,25 @@ class ReminderDetailsController extends GetxController {
   final ReminderDetailsRepository _repo = ReminderDetailsRepository();
   final UserPreferencesViewmodel _userPref = UserPreferencesViewmodel();
 
+  /// 🔍 SEARCH
+  RxString searchQuery = "".obs;
+  TextEditingController searchController = TextEditingController();
+
   RxBool isLoading = false.obs;
   RxString errorMessage = "".obs;
 
   Rxn<ReminderDetailsModel> reminderResponse = Rxn();
   RxList<Reminders> remindersList = <Reminders>[].obs;
+  List<Reminders> get filteredReminders {
+    if (searchQuery.value.isEmpty) {
+      return remindersList;
+    }
+
+    return remindersList.where((r) {
+      final title = r.title?.toLowerCase() ?? "";
+      return title.contains(searchQuery.value.toLowerCase());
+    }).toList();
+  }
 
   @override
   void onInit() {
@@ -64,5 +79,11 @@ class ReminderDetailsController extends GetxController {
         dateTime: dt,
       );
     }
+  }
+
+  @override
+  void onClose() {
+    searchController.dispose();
+    super.onClose();
   }
 }
